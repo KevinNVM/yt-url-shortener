@@ -41,7 +41,10 @@ class UrlController extends Controller
 
         Url::create($validated);
 
-        return redirect()->back();
+        return redirect()->back()->with('flash', [
+            'banner' => 'URL Shortened!',
+            'bannerStyle' => 'success'
+        ]);
     }
 
     /**
@@ -49,6 +52,9 @@ class UrlController extends Controller
      */
     public function show(Url $url)
     {
+        $url->increment('clicks');
+        $url->save();
+
         return redirect()->to($url->original);
     }
 
@@ -75,6 +81,9 @@ class UrlController extends Controller
     {
         $url->delete();
 
-        return redirect()->back();
+        return redirect()->back()->with('flash', [
+            'banner' => 'URL Deleted!',
+            'bannerStyle' => 'success'
+        ]);
     }
 }

@@ -15,7 +15,6 @@ use App\Http\Controllers\ProfileController;
 |
 */
 
-Route::get('/{url}', [UrlController::class, 'show'])->name('url.show');
 
 Route::middleware(['auth', 'verified'])->group(function () {
 
@@ -31,3 +30,5 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__ . '/auth.php';
+
+Route::get('/{url}', [UrlController::class, 'show'])->name('url.show');
